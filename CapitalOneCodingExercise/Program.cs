@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -17,6 +18,14 @@ namespace CapitalOneCodingExercise
             string URI = "https://2016.api.levelmoney.com/api/v2/core/get-all-transactions";
 
             var result = HttpPOST(URI, getAllTransitionRequest);
+            List<Transaction> transactions = new List<Transaction>();
+            var jResult = JObject.Parse(result);
+            var jTransactions = jResult["transactions"];
+            foreach(JObject json in jTransactions)
+            {
+                Transaction t = new Transaction(json);
+                transactions.Add(t);
+            }
         }
 
         public static string HttpPOST(string url, string queryString)
