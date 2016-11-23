@@ -26,6 +26,8 @@ namespace CapitalOneCodingExercise
                 Transaction t = new Transaction(json);
                 transactions.Add(t);
             }
+            List<MonthAverage> average = new List<MonthAverage>();
+            
         }
 
         public static string HttpPOST(string url, string queryString)
