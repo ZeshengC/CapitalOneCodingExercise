@@ -28,7 +28,7 @@ namespace CapitalOneCodingExercise
 
             var allTransactions = GetTransactions(getAllTransationRequestURI, getAllTransactionRequest);
             var monthGroup = allTransactions.GroupBy(t => t.MonthString);
-            List<MonthAverage> monthAverages = monthGroup.Select(g => new MonthAverage()
+            List<Average> monthAverages = monthGroup.Select(g => new Average()
             {
                 MonthString = g.Key,
                 Income = g.Where(t => t.Amount > 0).ToList(),
@@ -39,7 +39,7 @@ namespace CapitalOneCodingExercise
             if(crystalBall)
             {
                 var predictedTransactions = GetTransactions(getProjectedTransactionsForMonthURI, getProjectedTransactionsForMonthRequest);
-                monthAverages.Add(new MonthAverage()
+                monthAverages.Add(new Average()
                 {
                     MonthString = DateTime.Now.Year + "-" + DateTime.Now.Month + " predicted average",
                     Income = predictedTransactions.Where(t => t.Amount > 0).ToList(),
@@ -48,13 +48,14 @@ namespace CapitalOneCodingExercise
                     IgnoreCCPayment = ignoreCCPayment
                 });
             }
-            monthAverages.Add(new MonthAverage()
+            monthAverages.Add(new Average()
             {
                 MonthString = "average",
                 Income = allTransactions.Where(t => t.Amount > 0).ToList(),
                 Spent = allTransactions.Where(t => t.Amount < 0).ToList(),
                 IgnoreDonuts = ignoreDonuts,
-                IgnoreCCPayment = ignoreCCPayment
+                IgnoreCCPayment = ignoreCCPayment,
+                IsTotalAverage = true
             });
             string data = string.Join(", " + Environment.NewLine, monthAverages);
 
