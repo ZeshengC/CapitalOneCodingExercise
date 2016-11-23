@@ -14,56 +14,64 @@ namespace CapitalOneCodingExercise
     {
         static void Main(string[] args)
         {
-            string getAllTransactionRequest = "{\"args\": {\"uid\":  1110590645, \"token\":  \"A3C37DDA3CC09AD95A0F1D6F2C4E2DB6\", \"api-token\":  \"AppTokenForInterview\", \"json-strict-mode\": false, \"json-verbose-response\": false}}";
-            string getAllTransationRequestURI = "https://2016.api.levelmoney.com/api/v2/core/get-all-transactions";
-
-            string getProjectedTransactionsForMonthRequest = string.Format("{{ \"args\": {{ \"uid\":  1110590645, \"token\":  \"A3C37DDA3CC09AD95A0F1D6F2C4E2DB6\", \"api-token\":  \"AppTokenForInterview\", \"json-strict-mode\": false, \"json-verbose-response\": false}}, \"year\":  {0}, \"month\":  {1}}}", DateTime.Now.Year, DateTime.Now.Month);
-            string getProjectedTransactionsForMonthURI = "https://2016.api.levelmoney.com/api/v2/core/projected-transactions-for-month";
-
-
-            bool ignoreDonuts = args.Contains("--ignore-donuts");
-            bool crystalBall = args.Contains("--crystal-ball");
-            bool ignoreCCPayment = args.Contains("--ignore-cc-payments");
-
-
-            var allTransactions = GetTransactions(getAllTransationRequestURI, getAllTransactionRequest);
-            var monthGroup = allTransactions.GroupBy(t => t.MonthString);
-            List<Average> monthAverages = monthGroup.Select(g => new Average()
+            try
             {
-                MonthString = g.Key,
-                Income = g.Where(t => t.Amount > 0).ToList(),
-                Spent = g.Where(t => t.Amount < 0).ToList(),
-                IgnoreDonuts = ignoreDonuts,
-                IgnoreCCPayment = ignoreCCPayment
-            }).ToList();
-            if(crystalBall)
-            {
-                var predictedTransactions = GetTransactions(getProjectedTransactionsForMonthURI, getProjectedTransactionsForMonthRequest);
-                monthAverages.Add(new Average()
+                bool ignoreDonuts = args.Contains("--ignore-donuts");
+                bool crystalBall = args.Contains("--crystal-ball");
+                bool ignoreCCPayment = args.Contains("--ignore-cc-payments");
+
+                string getAllTransactionRequest = ConfigLookups.AllTransactionRequest;
+                string getAllTransationRequestURI = ConfigLookups.AllTransactionURI;
+
+                var allTransactions = GetTransactions(getAllTransationRequestURI, getAllTransactionRequest);
+                var monthGroup = allTransactions.GroupBy(t => t.MonthString);
+                List<Average> monthAverages = monthGroup.Select(g => new Average()
                 {
-                    MonthString = DateTime.Now.Year + "-" + DateTime.Now.Month + " predicted average",
-                    Income = predictedTransactions.Where(t => t.Amount > 0).ToList(),
-                    Spent = predictedTransactions.Where(t => t.Amount < 0).ToList(),
+                    MonthString = g.Key,
+                    Income = g.Where(t => t.Amount > 0).ToList(),
+                    Spent = g.Where(t => t.Amount < 0).ToList(),
                     IgnoreDonuts = ignoreDonuts,
                     IgnoreCCPayment = ignoreCCPayment
-                });
-            }
-            monthAverages.Add(new Average()
-            {
-                MonthString = "average",
-                Income = allTransactions.Where(t => t.Amount > 0).ToList(),
-                Spent = allTransactions.Where(t => t.Amount < 0).ToList(),
-                IgnoreDonuts = ignoreDonuts,
-                IgnoreCCPayment = ignoreCCPayment,
-                IsTotalAverage = true
-            });
-            string data = string.Join(", " + Environment.NewLine, monthAverages);
+                }).ToList();
 
-            Console.Write(data);
+                if (crystalBall)
+                {
+                    string getProjectedTransactionsForMonthRequest = string.Format(ConfigLookups.ProjectedTransactionRequest, DateTime.Now.Year, DateTime.Now.Month);
+                    string getProjectedTransactionsForMonthURI = ConfigLookups.ProjectedTransactionURI;
+                    var predictedTransactions = GetTransactions(getProjectedTransactionsForMonthURI, getProjectedTransactionsForMonthRequest);
+                    monthAverages.Add(new Average()
+                    {
+                        MonthString = DateTime.Now.Year + "-" + DateTime.Now.Month + " predicted average",
+                        Income = predictedTransactions.Where(t => t.Amount > 0).ToList(),
+                        Spent = predictedTransactions.Where(t => t.Amount < 0).ToList(),
+                        IgnoreDonuts = ignoreDonuts,
+                        IgnoreCCPayment = ignoreCCPayment
+                    });
+                }
+
+                monthAverages.Add(new Average()
+                {
+                    MonthString = "average",
+                    Income = allTransactions.Where(t => t.Amount > 0).ToList(),
+                    Spent = allTransactions.Where(t => t.Amount < 0).ToList(),
+                    IgnoreDonuts = ignoreDonuts,
+                    IgnoreCCPayment = ignoreCCPayment,
+                    IsTotalAverage = true
+                });
+
+                string data = string.Join(", " + Environment.NewLine, monthAverages);
+
+                Console.Write(data);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
 
         }
 
-        public static List<Transaction> GetTransactions(string url, string queryString)
+        private static List<Transaction> GetTransactions(string url, string queryString)
         {
             string result = HttpPOST(url, queryString);
             List<Transaction> transactions = new List<Transaction>();
@@ -76,7 +84,7 @@ namespace CapitalOneCodingExercise
             }
             return transactions;
         }
-        public static string HttpPOST(string url, string queryString)
+        private static string HttpPOST(string url, string queryString)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             using (WebClient webClient = new WebClient())
@@ -97,7 +105,7 @@ namespace CapitalOneCodingExercise
             }
         }
 
-        static byte[] Decompress(byte[] gzip)
+        private static byte[] Decompress(byte[] gzip)
         {
             using (GZipStream stream = new GZipStream(new MemoryStream(gzip),
                                   CompressionMode.Decompress))

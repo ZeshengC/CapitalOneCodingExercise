@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CapitalOneCodingExercise
 {
+    /// <summary>
+    /// Class for calculating averages
+    /// </summary>
     public class Average
     {
         public string MonthString { get; set; }
@@ -15,14 +18,14 @@ namespace CapitalOneCodingExercise
         public bool IgnoreCCPayment { get; set; }
         public bool IsTotalAverage { get; set; }
 
-        private List<Tuple<Transaction,Transaction>> CCPayments
+        private List<Tuple<Transaction, Transaction>> CCPayments
         {
             get
             {
                 List<Tuple<Transaction, Transaction>> ccs = new List<Tuple<Transaction, Transaction>>();
-                foreach(Transaction s in Spent)
+                foreach (Transaction s in Spent)
                 {
-                    foreach(Transaction i in Income)
+                    foreach (Transaction i in Income)
                     {
                         if (s.Amount == -i.Amount && (s.TransactionTime.AddHours(-24) <= i.TransactionTime) && (i.TransactionTime <= s.TransactionTime.AddHours(24)))
                             ccs.Add(new Tuple<Transaction, Transaction>(s, i));
@@ -38,14 +41,14 @@ namespace CapitalOneCodingExercise
             {
                 List<Transaction> trans = new List<Transaction>();
                 trans.AddRange(Spent);
-                if(IgnoreDonuts)
+                if (IgnoreDonuts)
                 {
                     trans = trans.Where(t => t.Merchant != "Krispy Kreme Donuts" && t.Merchant != "Dunkin #336784").ToList();
-                    
+
                 }
-                if(IgnoreCCPayment)
+                if (IgnoreCCPayment)
                 {
-                    foreach(Tuple<Transaction,Transaction> cc in CCPayments)
+                    foreach (Tuple<Transaction, Transaction> cc in CCPayments)
                         trans.Remove(cc.Item1);
                 }
                 double average = Math.Abs(trans.Select(t => t.Amount).Average());
@@ -70,16 +73,17 @@ namespace CapitalOneCodingExercise
         public override string ToString()
         {
             string result = string.Format("\"{0}\":{{\"spent\":\"${1}\",\"income\":\"${2}\"}}", MonthString, SpentAverage, IncomeAverage);
-            if(IgnoreCCPayment && !IsTotalAverage)
+            if (IgnoreCCPayment && !IsTotalAverage)
             {
                 StringBuilder sb = new StringBuilder(result);
-                foreach(Tuple<Transaction,Transaction> cc in CCPayments)
+                foreach (Tuple<Transaction, Transaction> cc in CCPayments)
                 {
                     sb.Append(Environment.NewLine);
                     sb.Append(string.Format("\"CC Payment\":{{\"Debit\":\"${0}\",\"Credit\":\"${1}\"}}", cc.Item1.Amount, cc.Item2.Amount));
                 }
                 result = sb.ToString();
             }
+            result = "{" + result + "}";
             return result;
 
         }
