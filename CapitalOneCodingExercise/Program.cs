@@ -26,8 +26,14 @@ namespace CapitalOneCodingExercise
                 Transaction t = new Transaction(json);
                 transactions.Add(t);
             }
-            List<MonthAverage> average = new List<MonthAverage>();
-            
+
+            var monthGroup = transactions.GroupBy(t => t.MonthString);
+            List<MonthAverage> monthAverages = monthGroup.Select(g => new MonthAverage() { MonthString = g.Key, Income = g.Select(a => a.Income).ToList(), Spent = g.Select(a => a.Spent).ToList() }).ToList();
+            monthAverages.Add(new MonthAverage() { MonthString = "average", Income = transactions.Select(t => t.Income).ToList(), Spent = transactions.Select(t => t.Spent).ToList() });
+            string data = string.Join(", " + Environment.NewLine, monthAverages);
+
+            Console.Write(data);
+
         }
 
         public static string HttpPOST(string url, string queryString)

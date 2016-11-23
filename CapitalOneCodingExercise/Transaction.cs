@@ -11,7 +11,7 @@ namespace CapitalOneCodingExercise
     {
         public Transaction(JObject json)
         {
-            Amount = (int)json["amount"];
+            Amount = (double)json["amount"];
             IsPending = (bool)json["is-pending"];
             AggregationTime = (long)json["aggregation-time"];
             AccountId = (string)json["account-id"];
@@ -22,9 +22,17 @@ namespace CapitalOneCodingExercise
             Merchant = (string)json["merchant"];
             TransactionTime = (DateTime)json["transaction-time"];
             MonthString = TransactionTime.Year + "-" + TransactionTime.Month;
+            if(Amount < 0)
+            {
+                Spent = Math.Abs(Amount);
+            }
+            else
+            {
+                Income = Amount;
+            }
 
         }
-        public int Amount { get; set; }
+        public double Amount { get; set; }
         public bool IsPending { get; set; }
         public long AggregationTime { get; set; }
         public string AccountId { get; set; }
@@ -35,6 +43,8 @@ namespace CapitalOneCodingExercise
         public string Merchant { get; set; }
         public DateTime TransactionTime { get; set; }
         public string MonthString { get; set; }
+        public double Spent { get; set; }
+        public double Income { get; set; }
 
     }
 }
