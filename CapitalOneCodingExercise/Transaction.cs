@@ -39,7 +39,5 @@ namespace CapitalOneCodingExercise
                 return TransactionTime.Year + "-" + TransactionTime.Month;
             }
         }
-        
-
     }
 }
