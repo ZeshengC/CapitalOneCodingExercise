@@ -16,6 +16,8 @@ Followings are the instructions to use the application<br />
    To take account of both "--ignore-donuts" and "--crystal-ball", you can use "CapitalOneCodingExercise.exe --ignore-donuts --crystal-ball"<br />
    To take account of all three, you can just use "CapitalOneCodingExercise.exe --ignore-donuts --crystal-ball --ignore-cc-payments"<br />
    The order of parameters does not matter.<br />
+The command line in windows prompt will look like this
+c:\bin>CapitalOneCodingExercise.exe --ignore-donuts
 
 
 ## Note
