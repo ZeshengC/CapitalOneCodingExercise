@@ -17,6 +17,10 @@ namespace CapitalOneCodingExercise
             string getAllTransitionRequest = "{\"args\": {\"uid\":  1110590645, \"token\":  \"A3C37DDA3CC09AD95A0F1D6F2C4E2DB6\", \"api-token\":  \"AppTokenForInterview\", \"json-strict-mode\": false, \"json-verbose-response\": false}}";
             string URI = "https://2016.api.levelmoney.com/api/v2/core/get-all-transactions";
 
+            bool ignoreDonuts = args.Contains("--ignore-donuts");
+            bool crystalBall = args.Contains("--crystal-ball");
+            bool ignoreCCPayment = args.Contains("--ignore-cc-payments");
+
             var result = HttpPOST(URI, getAllTransitionRequest);
             List<Transaction> transactions = new List<Transaction>();
             var jResult = JObject.Parse(result);
@@ -28,8 +32,23 @@ namespace CapitalOneCodingExercise
             }
 
             var monthGroup = transactions.GroupBy(t => t.MonthString);
-            List<MonthAverage> monthAverages = monthGroup.Select(g => new MonthAverage() { MonthString = g.Key, Income = g.Select(a => a.Income).ToList(), Spent = g.Select(a => a.Spent).ToList() }).ToList();
-            monthAverages.Add(new MonthAverage() { MonthString = "average", Income = transactions.Select(t => t.Income).ToList(), Spent = transactions.Select(t => t.Spent).ToList() });
+            List<MonthAverage> monthAverages = monthGroup.Select(g => new MonthAverage()
+                                                                {
+                                                                  MonthString = g.Key,
+                                                                  Income = g.Where(t => t.Amount > 0).ToList(),
+                                                                  Spent = g.Where(t => t.Amount < 0).ToList(),
+                                                                  IgnoreDonuts = ignoreDonuts,
+                                                                  CrystalBall = crystalBall,
+                                                                  IgnoreCCPayment = ignoreCCPayment}).ToList();
+            monthAverages.Add(new MonthAverage()
+                                {
+                                    MonthString = "average",
+                                    Income = transactions.Where(t => t.Amount > 0).ToList(),
+                                    Spent = transactions.Where(t => t.Amount < 0).ToList(),
+                                    IgnoreDonuts = ignoreDonuts,
+                                    CrystalBall = crystalBall,
+                                    IgnoreCCPayment = ignoreCCPayment
+                                });
             string data = string.Join(", " + Environment.NewLine, monthAverages);
 
             Console.Write(data);

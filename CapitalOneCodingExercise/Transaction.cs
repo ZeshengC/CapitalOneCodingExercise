@@ -21,16 +21,6 @@ namespace CapitalOneCodingExercise
             Categorization = (string)json["categorization"];
             Merchant = (string)json["merchant"];
             TransactionTime = (DateTime)json["transaction-time"];
-            MonthString = TransactionTime.Year + "-" + TransactionTime.Month;
-            if(Amount < 0)
-            {
-                Spent = Math.Abs(Amount);
-            }
-            else
-            {
-                Income = Amount;
-            }
-
         }
         public double Amount { get; set; }
         public bool IsPending { get; set; }
@@ -42,9 +32,14 @@ namespace CapitalOneCodingExercise
         public string Categorization { get; set; }
         public string Merchant { get; set; }
         public DateTime TransactionTime { get; set; }
-        public string MonthString { get; set; }
-        public double Spent { get; set; }
-        public double Income { get; set; }
+        public string MonthString
+        {
+            get
+            {
+                return TransactionTime.Year + "-" + TransactionTime.Month;
+            }
+        }
+        
 
     }
 }
