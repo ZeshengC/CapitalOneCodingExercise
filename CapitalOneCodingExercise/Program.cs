@@ -34,7 +34,6 @@ namespace CapitalOneCodingExercise
                 Income = g.Where(t => t.Amount > 0).ToList(),
                 Spent = g.Where(t => t.Amount < 0).ToList(),
                 IgnoreDonuts = ignoreDonuts,
-                CrystalBall = crystalBall,
                 IgnoreCCPayment = ignoreCCPayment
             }).ToList();
             if(crystalBall)
@@ -46,7 +45,6 @@ namespace CapitalOneCodingExercise
                     Income = predictedTransactions.Where(t => t.Amount > 0).ToList(),
                     Spent = predictedTransactions.Where(t => t.Amount < 0).ToList(),
                     IgnoreDonuts = ignoreDonuts,
-                    CrystalBall = crystalBall,
                     IgnoreCCPayment = ignoreCCPayment
                 });
             }
@@ -56,7 +54,6 @@ namespace CapitalOneCodingExercise
                 Income = allTransactions.Where(t => t.Amount > 0).ToList(),
                 Spent = allTransactions.Where(t => t.Amount < 0).ToList(),
                 IgnoreDonuts = ignoreDonuts,
-                CrystalBall = crystalBall,
                 IgnoreCCPayment = ignoreCCPayment
             });
             string data = string.Join(", " + Environment.NewLine, monthAverages);
