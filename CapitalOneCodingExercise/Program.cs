@@ -23,7 +23,6 @@ namespace CapitalOneCodingExercise
                 string getAllTransactionRequest = ConfigLookups.AllTransactionRequest;
                 string getAllTransationRequestURI = ConfigLookups.AllTransactionURI;
 
-                // Get all transactions and group them by the month
                 var allTransactions = GetTransactions(getAllTransationRequestURI, getAllTransactionRequest);
                 var monthGroup = allTransactions.GroupBy(t => t.MonthString);
                 List<Average> monthAverages = monthGroup.Select(g => new Average()
@@ -35,7 +34,6 @@ namespace CapitalOneCodingExercise
                     IgnoreCCPayment = ignoreCCPayment
                 }).ToList();
 
-                // Add predicted average
                 if (crystalBall)
                 {
                     string getProjectedTransactionsForMonthRequest = string.Format(ConfigLookups.ProjectedTransactionRequest, DateTime.Now.Year, DateTime.Now.Month);
@@ -51,7 +49,6 @@ namespace CapitalOneCodingExercise
                     });
                 }
 
-                // Add the average of all transactions
                 monthAverages.Add(new Average()
                 {
                     MonthString = "average",
