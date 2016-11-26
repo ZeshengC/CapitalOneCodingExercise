@@ -39,35 +39,45 @@ namespace CapitalOneCodingExercise
         {
             get
             {
-                List<Transaction> trans = new List<Transaction>();
-                trans.AddRange(Spent);
-                if (IgnoreDonuts)
+                if(Spent != null && Spent.Count > 0)
                 {
-                    trans = trans.Where(t => t.Merchant != "Krispy Kreme Donuts" && t.Merchant != "Dunkin #336784").ToList();
+                    List<Transaction> trans = new List<Transaction>();
+                    trans.AddRange(Spent);
+                    if (IgnoreDonuts)
+                    {
+                        trans = trans.Where(t => t.Merchant != "Krispy Kreme Donuts" && t.Merchant != "Dunkin #336784").ToList();
 
+                    }
+                    if (IgnoreCCPayment)
+                    {
+                        foreach (Tuple<Transaction, Transaction> cc in CCPayments)
+                            trans.Remove(cc.Item1);
+                    }
+                    double average = Math.Abs(trans.Select(t => t.Amount).Average());
+                    return Math.Round(average, 2);
                 }
-                if (IgnoreCCPayment)
-                {
-                    foreach (Tuple<Transaction, Transaction> cc in CCPayments)
-                        trans.Remove(cc.Item1);
-                }
-                double average = Math.Abs(trans.Select(t => t.Amount).Average());
-                return Math.Round(average, 2);
+                return 0;
+                
             }
         }
         public double IncomeAverage
         {
             get
             {
-                List<Transaction> trans = new List<Transaction>();
-                trans.AddRange(Income);
-                if (IgnoreCCPayment)
+                if(Income != null && Income.Count > 0)
                 {
-                    foreach (Tuple<Transaction, Transaction> cc in CCPayments)
-                        trans.Remove(cc.Item2);
+                    List<Transaction> trans = new List<Transaction>();
+                    trans.AddRange(Income);
+                    if (IgnoreCCPayment)
+                    {
+                        foreach (Tuple<Transaction, Transaction> cc in CCPayments)
+                            trans.Remove(cc.Item2);
+                    }
+                    double average = Income.Select(t => t.Amount).Average();
+                    return Math.Round(average, 2);
                 }
-                double average = Income.Select(t => t.Amount).Average();
-                return Math.Round(average, 2);
+                return 0;
+                
             }
         }
         public override string ToString()

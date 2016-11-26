@@ -66,9 +66,8 @@ namespace CapitalOneCodingExercise
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
             }
-            
-
         }
 
         private static List<Transaction> GetTransactions(string url, string queryString)
