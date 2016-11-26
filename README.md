@@ -9,7 +9,7 @@ This project implements all three additional features: "--ignore-donuts", "--cry
 2. Checkout the project or download it as zip.
 3. Open a cmd window under the directory which contains the CapitalOneCoddingExercise.sln file.
 4. Type command: nuget.exe restore (restore all the nuget packages)
-5. Type command: c:\windows\microsoft.net\framework\v4.0.30319\msbuild.exe (using msbuild to build the c# project)
+5. Type command: c:\windows\microsoft.net\framework\v4.0.30319\msbuild.exe (Using msbuild to build the c# project. Assuming you installed .Net 4.0 using default settings. You can change the directory of msbuild.exe to any path you see fit).
 6. Go to the following directory: %sln file directory%\CapitalOneCodingExercise\bin\debug\
 7. You will find several files including CapitalOneCodingExercise.exe file. This is the excutable file you can use to run the application.
 8. If you have trouble to build the project. I also included the compiled version in Compiled folder. You can find the CapitalOneCodingExercise.exe excutable there too.
