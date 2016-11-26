@@ -28,8 +28,9 @@ This project implements all three additional features: "--ignore-donuts", "--cry
    c:\CapitalOneCodingExercice\bin\debug>CapitalOneCodingExercise.exe --ignore-donuts
 
 
-## Note
-The average is defined as<br />
-spent average = total amount of all spend in this month/the total number of spend transactions happened in this month<br />
-<br />
-I assume the two transactions of cc payments only happen within the same month.<br />
+## Assumptions
+1. The average is defined as
+   spent average = total amount of all spend in this month/the total number of spend transactions happened in this month<br />
+   income average = total amount of all income in this month/the total number of income transactions happened in this month
+2. Two transactions of cc payments only happen within the same month.
+3. When using --crystal-ball, the predicted transactions for the rest of this month are not included in the calculation of total average.
