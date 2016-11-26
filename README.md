@@ -4,10 +4,17 @@ This is CapitalOne coding exercise project which is written in C#. It is a typic
 This project is developped using VS2015.<br />
 This project implements all three additional features: "--ignore-donuts", "--crystal-ball", and "--ignore-cc-payments". And you can also use any combination of those three parameters.<br />
 
+## How to Compile
+1. Please make sure you have .Net 4.0 installed in your machine. If not, you can download it from https://www.microsoft.com/EN-US/DOWNLOAD/confirmation.aspx?id=17718
+2. Checkout the project or download it as zip.
+3. Open a cmd window under the directory which contains the CapitalOneCoddingExercise.sln file.
+4. Type command: nuget.exe restore (restore all the nuget packages)
+5. Type command: c:\windows\microsoft.net\framework\v4.0.30319\msbuild.exe (using msbuild to build the c# project)
+6. Go to the following directory: %sln file directory%\CapitalOneCodingExercise\bin\debug\
+7. You will find several files including CapitalOneCodingExercise.exe file. This is the excutable file you can use to run the application.
+8. If you have trouble to build the project. I also included the compiled version in Compiled folder. You can find the CapitalOneCodingExercise.exe excutable there too.
 ## How to use
-The zip file contains two folders, one is called src, the other one is called bin. The "src" folder contains all the source code and solution file which you can open using VS2015. The "bin" folder contains a compiled exe file which you can use to run the application.
-Followings are the instructions to use the application<br />
-1. Open a window command prompt under the bin folder directory.<br />
+1. Open a cmd window under the CapitalOneCodingExercise.exe excutable directory.<br />
 2. To get original average data, use command "CapitalOneCodingExercise.exe".<br />
 3. To get data with "--ignore-donuts", use command "CapitalOneCodingExercise.exe --ignore-donuts".<br />
 4. To get data with "--crystal-ball", use command "CapitalOneCodingExercise.exe --crystal-ball".<br />
