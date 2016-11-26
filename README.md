@@ -29,7 +29,7 @@ This project implements all three additional features: "--ignore-donuts", "--cry
 
 
 ## Assumptions
-1. The average is defined as
+1. The average is defined as<br />
    spent average = total amount of all spend in this month/the total number of spend transactions happened in this month<br />
    income average = total amount of all income in this month/the total number of income transactions happened in this month
 2. Two transactions of cc payments only happen within the same month.
