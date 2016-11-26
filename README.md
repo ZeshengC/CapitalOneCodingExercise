@@ -13,18 +13,19 @@ This project implements all three additional features: "--ignore-donuts", "--cry
 6. Go to the following directory: %sln file directory%\CapitalOneCodingExercise\bin\debug\
 7. You will find several files including CapitalOneCodingExercise.exe file. This is the excutable file you can use to run the application.
 8. If you have trouble to build the project. I also included the compiled version in Compiled folder. You can find the CapitalOneCodingExercise.exe excutable there too.
+
 ## How to use
-1. Open a cmd window under the CapitalOneCodingExercise.exe excutable directory.<br />
-2. To get original average data, use command "CapitalOneCodingExercise.exe".<br />
-3. To get data with "--ignore-donuts", use command "CapitalOneCodingExercise.exe --ignore-donuts".<br />
-4. To get data with "--crystal-ball", use command "CapitalOneCodingExercise.exe --crystal-ball".<br />
-5. To get data with "--ignore-cc-payments", use command "CapitalOneCodingExercise.exe --ignore--cc-payments".<br />
+1. Open a cmd window under the CapitalOneCodingExercise.exe excutable directory.
+2. To get original average data, use command "CapitalOneCodingExercise.exe".
+3. To get data with "--ignore-donuts", use command "CapitalOneCodingExercise.exe --ignore-donuts".
+4. To get data with "--crystal-ball", use command "CapitalOneCodingExercise.exe --crystal-ball".
+5. To get data with "--ignore-cc-payments", use command "CapitalOneCodingExercise.exe --ignore--cc-payments".
 6. You can also use any combination of those parameters. For example:<br />
    To take account of both "--ignore-donuts" and "--crystal-ball", you can use "CapitalOneCodingExercise.exe --ignore-donuts --crystal-ball"<br />
    To take account of all three, you can just use "CapitalOneCodingExercise.exe --ignore-donuts --crystal-ball --ignore-cc-payments"<br />
    The order of parameters does not matter.<br />
 The command line in windows prompt will look like this<br />
-c:\bin>CapitalOneCodingExercise.exe --ignore-donuts
+c:\CapitalOneCodingExercice\bin\debug>CapitalOneCodingExercise.exe --ignore-donuts
 
 
 ## Note
