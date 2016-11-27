@@ -19,7 +19,7 @@ This project implements all three additional features: "--ignore-donuts", "--cry
 2. To get original average data, use command "CapitalOneCodingExercise.exe".
 3. To get data with "--ignore-donuts", use command "CapitalOneCodingExercise.exe --ignore-donuts".
 4. To get data with "--crystal-ball", use command "CapitalOneCodingExercise.exe --crystal-ball".
-5. To get data with "--ignore-cc-payments", use command "CapitalOneCodingExercise.exe --ignore--cc-payments".
+5. To get data with "--ignore-cc-payments", use command "CapitalOneCodingExercise.exe --ignore-cc-payments".
 6. You can also use any combination of those parameters. For example:<br />
    To take account of both "--ignore-donuts" and "--crystal-ball", you can use "CapitalOneCodingExercise.exe --ignore-donuts --crystal-ball"<br />
    To take account of all three, you can just use "CapitalOneCodingExercise.exe --ignore-donuts --crystal-ball --ignore-cc-payments"
