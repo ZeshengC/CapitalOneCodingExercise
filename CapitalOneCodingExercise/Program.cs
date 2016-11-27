@@ -20,6 +20,9 @@ namespace CapitalOneCodingExercise
                 bool crystalBall = args.Contains("--crystal-ball");
                 bool ignoreCCPayment = args.Contains("--ignore-cc-payments");
 
+                if (args.Length > 0 && !(ignoreCCPayment || crystalBall || ignoreCCPayment))
+                    throw new Exception("Invalid parameter");
+
                 string getAllTransactionRequest = ConfigLookups.AllTransactionRequest;
                 string getAllTransationRequestURI = ConfigLookups.AllTransactionURI;
 
