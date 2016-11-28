@@ -16,9 +16,21 @@ namespace CapitalOneCodingExercise
         {
             try
             {
-                bool ignoreDonuts = args.Contains("--ignore-donuts");
-                bool crystalBall = args.Contains("--crystal-ball");
-                bool ignoreCCPayment = args.Contains("--ignore-cc-payments");
+                bool ignoreDonuts = false;
+                bool crystalBall = false;
+                bool ignoreCCPayment = false;
+
+                foreach (string arg in args)
+                {
+                    if (arg != "--ignore-donuts" && arg != "--crystal-ball" && arg != "--ignore-cc-payments")
+                        throw new Exception("Invalid parameter: " + arg);
+                    if (arg == "--ignore-donuts")
+                        ignoreDonuts = true;
+                    if (arg == "--crystal-ball")
+                        crystalBall = true;
+                    if (arg == "--ignore-cc-payments")
+                        ignoreCCPayment = true;
+                }
 
                 if (args.Length > 0 && !(ignoreCCPayment || crystalBall || ignoreCCPayment))
                     throw new Exception("Invalid parameter");
