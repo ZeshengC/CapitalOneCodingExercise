@@ -32,9 +32,6 @@ namespace CapitalOneCodingExercise
                         ignoreCCPayment = true;
                 }
 
-                if (args.Length > 0 && !(ignoreCCPayment || crystalBall || ignoreCCPayment))
-                    throw new Exception("Invalid parameter");
-
                 string getAllTransactionRequest = ConfigLookups.AllTransactionRequest;
                 string getAllTransationRequestURI = ConfigLookups.AllTransactionURI;
 
